@@ -22,7 +22,7 @@ $$ -u''(x) + p(x)u'(x)+q(x)u(x) = f(x)$$  pour $$x \in ]a, b[$$
 
 ### Discrétisation par différence finie
 
-On discrétise le segment $$[a, b]$$ suivant les points $$x_i$$, tels que : \
+On discrétise le segment $$[a, b]$$ suivant les points $$x_i$$, tels que :  
 $$ x_i = a + i*h$$ pour $$ i \in [|0, N+1|] $$ avec $$ h = \frac{b - a}{N+1} $$
 
 Remarque : $$x_0 = a$$ et $$x_{N+1} = b $$
@@ -52,7 +52,7 @@ Montrez que si une matrice A est à diagonale strictement dominante $$(|a_{ii}| 
 ~~~
 
 ~~~ answer
-Soit $$\lambda$$ une valeur propre de A à diagonale strictement dominante et $$x=(x_1,...,x_n)$$ un vecteur propre associé $$x$$ non nul). \
+Soit $$\lambda$$ une valeur propre de A à diagonale strictement dominante et $$x=(x_1,...,x_n)$$ un vecteur propre associé $$x$$ non nul. \
 A$$x = \lambda x$$ donc pour tout $$i \in [|1, n|]$$ on a $$ \sum_{k \neq i } a_{ik} x_k = (\lambda - 1)x_{ii} a_{ii}$$ \
 Supposons que 0 est valeur propre. En passant à la valeur absolue on peut écrire :
 $$ |\sum_{k \neq i } a_{ik} x_k| = |x_{ii} a_{ii}| $$ \
@@ -64,10 +64,11 @@ Donc A est inversible.
 ~~~
 
 ~~~ question
-Soit A la matrice défini par : \
- - $$, $$ a_{ii} = 2+h^2q_i$$
+Soit A la matrice définie par : 
+ - $$ a_{ii} = 2+h^2q_i$$
  - $$a_{ij} = -1 + \frac{h}{2} p_i$$, si $$j=i+1$$
  - $$a_{ij} = -1 - \frac{h}{2} p_i$$, si $$j=i-1$$
- - $$a_{ij} = 0$$, partout ailleur.
+ - $$a_{ij} = 0$$, partout ailleurs.  
+
 Montrez que si q est positif sur $$[a, b]$$ et $$h < \frac{2}{||p||}$$ alors A est inversible.
 ~~~
