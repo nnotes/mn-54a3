@@ -46,3 +46,28 @@ $$ U_0 = \alpha $$ $$ U_{N+1} = \beta $$
 
 **Théorème de convergence** : Si $$ p, q, f \in C^2[a, b] $$ et $$q>0$$ alors quand $$h -> 0 $$, $$ sup(|u(x_i) - u_i|, 1 \leq i \leq N) = O(h^2) $$ \
 Remarque : ce théorème est démontré en exercice.
+
+~~~ question
+Montrez que si une matrice A est à diagonale strictement dominante $$(|a_{ii}| > \sum_{k=0}^n a_{ij} )$$ alors A est inversible.
+~~~
+
+~~~ answer
+Soit $$\lambda$$ une valeur propre de A à diagonale strictement dominante et $$x=(x_1,...,x_n)$$ un vecteur propre associé $$x$$ non nul). \
+A$$x = \lambda x$$ donc pour tout $$i \in [|1, n|]$$ on a $$ \sum_{k \neq i } a_{ik} x_k = (\lambda - 1)x_{ii} a_{ii}$$ \
+Supposons que 0 est valeur propre. En passant à la valeur absolue on peut écrire :
+$$ |\sum_{k \neq i } a_{ik} x_k| = |x_{ii} a_{ii}| $$ \
+Soit j tel que $$ |x_j| = min(|x_k|>0) $$, j existe car $$x\neq 0$$
+d'où $$ 0 < |a_{jj}| = |\sum_{k \neq j } a_{jk} \frac{x_k}{x_j}| \leq |\sum_{k \neq j } a_{jk}| $$ \
+Contradictoire avec A à diagonale strictement dominante.\
+Donc 0 n'est pas valeur propre. \
+Donc A est inversible.
+~~~
+
+~~~ question
+Soit A la matrice défini par : \
+ - $$, $$ a_{ii} = 2+h^2q_i$$
+ - $$a_{ij} = -1 + \frac{h}{2} p_i$$, si $$j=i+1$$
+ - $$a_{ij} = -1 - \frac{h}{2} p_i$$, si $$j=i-1$$
+ - $$a_{ij} = 0$$, partout ailleur.
+Montrez que si q est positif sur $$[a, b]$$ et $$h < \frac{2}{||p||}$$ alors A est inversible.
+~~~
