@@ -1,4 +1,4 @@
-% Méthode numérique de base de FULL NAME est mis à disposition
+﻿% Méthode numérique de base de Paul CALDERON est mis à disposition
 % selon les termes de la licence Creative Commons Attribution - Partage dans les
 % Mêmes Conditions 4.0 International. Pour accéder à une copie de cette licence,
 % merci de vous rendre à l'adresse suivante
@@ -8,3 +8,71 @@
 
 
 # Méthode numérique de base
+
+## Approximation par différence finie
+
+### Introduction du problème
+
+On cherche à résoudre l'équation différentielle (P) suivante :
+$$ -u''(x) + p(x)u'(x)+q(x)u(x) = f(x)$$  pour $$x \in ]a, b[$$ 
+ - $$ u(a)=\alpha $$ et $$ u(b)=\beta $$ , $$\alpha , \beta \in R $$
+ - $$ p, q, f \in C^0([a,b]) $$
+
+**Théorème** : Si $$ q(x)>0, x \in [a, b] $$ alors (P) admet une unique solution $$ U \in C^2([a, b]) $$. De plus si $$ p, q, f \in C^k([a, b]) $$ alors $$ u \in C^{k+2}([a, b]) $$
+
+### Discrétisation par différence finie
+
+On discrétise le segment $$[a, b]$$ suivant les points $$x_i$$, tels que :  
+$$ x_i = a + i*h$$ pour $$ i \in [|0, N+1|] $$ avec $$ h = \frac{b - a}{N+1} $$
+
+Remarque : $$x_0 = a$$ et $$x_{N+1} = b $$
+
+On cherche à approcher la valeur de $$u$$ aux points $$x_i$$. On notera $$U_i$$ la valeur approchée de $$u(x_i)$$. \
+On approche $$u$$ et $$u''$$ par en $$x_i$$ en utilisant un développement de Taylor.
+
+Rappel : \
+ si $$u$$ est $$C^n([a, b])$$ alors pour $$x\in [a, b]$$ $$u$$ admet un développement de Taylor à l'ordre n-1. Il existe alors $$\theta \in ]a, b[$$ tel que $$ u(x+h) = u(x) + h.u'(x) + ... + \frac{h^{n-1}}{(n-1)!}u^{(n-1)}(x) + \frac{h^{n}}{n!}u^{(n)}( \theta ) $$
+
+D’où : \
+$$ u(x_{i+1})=u(x_i+h) = u(x_i) + h.u'(x_i) + \frac{h^{2}}{2!}u^{2}(x_i) + \frac{h^{3}}{3!}u^{(3)}(x_i) + \frac{h^{4}}{4!}u^{(4)}( \theta _i) $$ avec $$( \theta _i) \in ]x_i, x_{i+1}[$$
+$$ u(x_{i-1})=u(x_i-h) = u(x_i) - h.u'(x_i) + \frac{h^{2}}{2!}u^{2}(x_i) - \frac{h^{3}}{3!}u^{(3)}(x_i) + \frac{h^{4}}{4!}u^{(4)}( \theta _i) $$ avec $$( \theta _i) \in ]x_i, x_{i+1}[$$
+
+En additionnant et soustrayant $$ u(x_{i+1}) $$ et $$ u(x_{i-1}) $$, et en injectant le résultat dans (P) on obtient : 
+$$ \frac{2u(x_i) - u(x_{i+1}) - u(x_{i-1})}{h^2} + p(x_i) \frac{u(x_{i+1}) - u(x_{i-1})}{2h} + q(x_i) u(x_i) - f(x_i) = e_i = O(h^2) $$ 
+
+D’où l'approximation du problème (P) : 
+$$ \frac{2u_i - u_{i+1} - u_{i-1}}{h^2} + p(x_i) \frac{u_{i+1} - u_{i-1}}{2h} + q(x_i) u_i - f(x_i) = 0 $$ 
+$$ U_0 = \alpha $$ $$ U_{N+1} = \beta $$
+
+**Théorème de convergence** : Si $$ p, q, f \in C^2[a, b] $$ et $$q>0$$ alors quand $$h -> 0 $$, $$ sup(|u(x_i) - u_i|, 1 \leq i \leq N) = O(h^2) $$ \
+Remarque : ce théorème est démontré en exercice.
+
+~~~ question
+Montrez que si une matrice A est à diagonale strictement dominante $$(|a_{ii}| > \sum_{k=0}^n a_{ij} )$$ alors A est inversible.
+~~~
+
+~~~ answer
+Soit $$\lambda$$ une valeur propre de A à diagonale strictement dominante et $$x=(x_1,...,x_n)$$ un vecteur propre associé $$x$$ non nul. \
+A$$x = \lambda x$$ donc pour tout $$i \in [|1, n|]$$ on a $$ \sum_{k \neq i } a_{ik} x_k = (\lambda - 1)x_{ii} a_{ii}$$ \
+Supposons que 0 est valeur propre. En passant à la valeur absolue on peut écrire :
+$$ |\sum_{k \neq i } a_{ik} x_k| = |x_{ii} a_{ii}| $$ \
+Soit j tel que $$ |x_j| = min(|x_k|>0) $$, j existe car $$x\neq 0$$
+d'où $$ 0 < |a_{jj}| = |\sum_{k \neq j } a_{jk} \frac{x_k}{x_j}| \leq |\sum_{k \neq j } a_{jk}| $$ \
+Contradictoire avec A à diagonale strictement dominante.\
+Donc 0 n'est pas valeur propre. \
+Donc A est inversible.
+~~~
+
+~~~ question
+Soit A la matrice définie par : 
+ - $$ a_{ii} = 2+h^2q_i$$
+ - $$a_{ij} = -1 + \frac{h}{2} p_i$$, si $$j=i+1$$
+ - $$a_{ij} = -1 - \frac{h}{2} p_i$$, si $$j=i-1$$
+ - $$a_{ij} = 0$$, partout ailleurs.  
+
+Montrez que si q est positif sur $$[a, b]$$ et $$h < \frac{2}{||p||}$$ alors A est inversible.
+~~~
+
+~~~ answer
+
+~~~
